@@ -1,0 +1,7 @@
+maxpou_beer_brewery:
+    resource: "@MaxpouBeerBundle/Resources/config/routing/brewery.yml"
+    prefix:   /brewery
+
+maxpou_beer_beer:
+    resource: "@MaxpouBeerBundle/Resources/config/routing/beer.yml"
+    prefix:   /beer

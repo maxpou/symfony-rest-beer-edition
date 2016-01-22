@@ -1,0 +1,8 @@
+homepage:
+    path:     /
+    defaults: { _controller: "AppBundle:Default:index" }
+    methods:  GET
+
+maxpou_beer:
+    resource: "@MaxpouBeerBundle/Resources/config/routing.yml"
+    prefix:   /admin

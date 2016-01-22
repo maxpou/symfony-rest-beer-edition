@@ -1,0 +1,24 @@
+brewery_index:
+    path:     /
+    defaults: { _controller: "MaxpouBeerBundle:Brewery:index" }
+    methods:  GET
+
+brewery_show:
+    path:     /{id}/show
+    defaults: { _controller: "MaxpouBeerBundle:Brewery:show" }
+    methods:  GET
+
+brewery_new:
+    path:     /new
+    defaults: { _controller: "MaxpouBeerBundle:Brewery:new" }
+    methods:  [GET, POST]
+
+brewery_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MaxpouBeerBundle:Brewery:edit" }
+    methods:  [GET, POST]
+
+brewery_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MaxpouBeerBundle:Brewery:delete" }
+    methods:  DELETE

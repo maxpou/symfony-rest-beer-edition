@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Beer list</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Brewery</th>
+                <th>Alcohol</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for beer in beers %}
+            <tr>
+                <td><a href="{{ path('beer_show', { 'id': beer.id }) }}">{{ beer.id }}</a></td>
+                <td>{{ beer.name }}</td>
+                <td>{{ beer.description }}</td>
+                <td>{{ beer.alcohol }}</td>
+                <td>{{ beer.brewery.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('beer_show', { 'id': beer.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('beer_edit', { 'id': beer.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('beer_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
