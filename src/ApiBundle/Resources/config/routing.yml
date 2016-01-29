@@ -1,0 +1,9 @@
+api_brewery_rest:
+    type:   rest
+    resource:   ApiBundle\Controller\BreweryController
+    name_prefix:  api_
+
+api_beer_rest:
+    type:   rest
+    resource:   ApiBundle\Controller\BeerController
+    name_prefix:  api_

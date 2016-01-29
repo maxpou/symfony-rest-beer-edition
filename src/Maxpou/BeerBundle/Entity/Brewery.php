@@ -4,6 +4,7 @@ namespace Maxpou\BeerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Maxpou\BeerBundle\Model\BreweryInterface;
 
 /**
  * Brewery
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="brewery")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BreweryRepository")
  */
-class Brewery
+class Brewery implements BreweryInterface
 {
     /**
      * @var int

@@ -1,3 +1,12 @@
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
+api:
+    type: rest
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /api/
+
 homepage:
     path:     /
     defaults: { _controller: "AppBundle:Default:index" }
