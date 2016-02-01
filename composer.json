@@ -1,6 +1,8 @@
 {
-    "name": "xbuq894/beer-app",
-    "license": "proprietary",
+    "name": "maxpou/symfony-rest-api-and-dto",
+    "description": "Simple Symfony app with a REST API and DTO design pattern",
+    "keywords": ["symfony","REST","DTO"],
+    "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -11,6 +13,12 @@
             "app/AppCache.php"
         ]
     },
+    "authors": [
+      {
+          "name": "Maxence POUTORD",
+          "email": "maxence.poutord@gmail.fr"
+      }
+    ],
     "require": {
         "php": ">=5.3.9",
         "symfony/symfony": "2.8.*",
@@ -30,8 +38,7 @@
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
         "symfony/phpunit-bridge": "~2.7",
-        "doctrine/doctrine-fixtures-bundle": "^2.3",
-        "phpunit/phpunit": "^5.1"
+        "doctrine/doctrine-fixtures-bundle": "^2.3"
     },
     "scripts": {
         "post-install-cmd": [

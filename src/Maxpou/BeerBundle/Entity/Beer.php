@@ -27,6 +27,7 @@ class Beer implements BeerInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -41,6 +42,10 @@ class Beer implements BeerInterface
      * @var float
      *
      * @ORM\Column(name="alcohol", type="float")
+     * @Assert\GreaterThan(
+     *     value = 5,
+     *     message= "Please, provide real beer ;-) ({{ compared_value }}° minimum)"
+     * )
      */
     private $alcohol;
 

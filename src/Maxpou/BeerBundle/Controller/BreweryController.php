@@ -36,7 +36,7 @@ class BreweryController extends Controller
     public function newAction(Request $request)
     {
         $brewery = new Brewery();
-        $form = $this->createForm('Maxpou\BeerBundle\Form\BreweryType', $brewery);
+        $form = $this->createForm(BreweryType::class, $brewery);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -74,7 +74,7 @@ class BreweryController extends Controller
     public function editAction(Request $request, Brewery $brewery)
     {
         $deleteForm = $this->createDeleteForm($brewery);
-        $editForm = $this->createForm('Maxpou\BeerBundle\Form\BreweryType', $brewery);
+        $editForm = $this->createForm(BreweryType::class, $brewery);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

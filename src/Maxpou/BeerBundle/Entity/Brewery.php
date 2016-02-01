@@ -5,6 +5,7 @@ namespace Maxpou\BeerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Maxpou\BeerBundle\Model\BreweryInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Brewery
@@ -20,6 +21,7 @@ class Brewery implements BreweryInterface
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
+     * @Assert\NotBlank()
      */
     private $id;
 

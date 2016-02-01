@@ -36,7 +36,7 @@ class BeerController extends Controller
     public function newAction(Request $request)
     {
         $beer = new Beer();
-        $form = $this->createForm('Maxpou\BeerBundle\Form\BeerType', $beer);
+        $form = $this->createForm(BeerType::class, $beer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -62,7 +62,7 @@ class BeerController extends Controller
         $deleteForm = $this->createDeleteForm($beer);
 
         return $this->render('MaxpouBeerBundle:beer:show.html.twig', array(
-            'beer' => $beer,
+            'beer'        => $beer,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -74,7 +74,7 @@ class BeerController extends Controller
     public function editAction(Request $request, Beer $beer)
     {
         $deleteForm = $this->createDeleteForm($beer);
-        $editForm = $this->createForm('Maxpou\BeerBundle\Form\BeerType', $beer);
+        $editForm = $this->createForm(BeerType::class, $beer);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -86,8 +86,8 @@ class BeerController extends Controller
         }
 
         return $this->render('MaxpouBeerBundle:beer:edit.html.twig', array(
-            'beer' => $beer,
-            'edit_form' => $editForm->createView(),
+            'beer'        => $beer,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

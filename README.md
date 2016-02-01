@@ -1,3 +1,5 @@
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/665c060e-aa8a-458a-b74c-44c5725c7155/big.png)](https://insight.sensiolabs.com/projects/665c060e-aa8a-458a-b74c-44c5725c7155)
+
 Symfony, REST API and DTO (Work in progress)
 ============================================
 
