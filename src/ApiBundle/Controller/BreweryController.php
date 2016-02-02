@@ -2,8 +2,10 @@
 
 namespace ApiBundle\Controller;
 
-use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use ApiBundle\Dto\BreweryDTO;
@@ -21,14 +23,19 @@ class BreweryController extends FOSRestController
      *  statusCodes={
      *      200="Returned when successful"
      * })
-     * @return [type] [description]
-     *
+     * @QueryParam(name="offset", requirements="\d+", nullable=true,
+     *     description="Offset from which to start listing breweries.")
+     * @QueryParam(name="limit", requirements="\d+", nullable=true,
+     *     description="How many breweries to return.")
      */
-    public function getBreweriesAction()
+    public function getBreweriesAction(ParamFetcher $paramFetcher)
     {
+        $offset = $paramFetcher->get('offset');
+        $limit  = $paramFetcher->get('limit');
+
         $em        = $this->getDoctrine()->getManager();
         $breweries = $em  ->getRepository('MaxpouBeerBundle:Brewery')
-                        ->findBy([], ['name' => 'ASC']);
+                          ->findBy([], ['name' => 'ASC'], $limit, $offset);
 
         $breweryCollection = array_map(function ($aBrewery) {
             return $breweryCollection[] = new BreweryDTO($aBrewery);
@@ -44,13 +51,20 @@ class BreweryController extends FOSRestController
       *  statusCodes={
       *      200="Returned when successful",
       *      400="Returned when parameter is wrong",
-      *      404="Returned when not found",
+      *      404="Returned when not found"
       * })
-      * @return [type] [description]
       *
-      * @TODO: change ubly name(Brewerie)
       */
     public function getBrewerieAction($id)
     {
+        $brewery = $this->getDoctrine()->getManager()
+                        ->getRepository('MaxpouBeerBundle:Brewery')
+                        ->find($id);
+
+        if (!$brewery) {
+            throw new HttpException(404, 'Unable to find this Brewery entity');
+        }
+
+        return new BreweryDTO($brewery);
     }
 }

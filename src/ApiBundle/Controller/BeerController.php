@@ -3,6 +3,8 @@
 namespace ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -20,13 +22,21 @@ class BeerController extends FOSRestController
      *  statusCodes={
      *      200="Returned when successful"
      * })
+     * @QueryParam(name="offset", requirements="\d+", nullable=true,
+     *     description="Offset from which to start listing breweries.")
+     * @QueryParam(name="limit", requirements="\d+", nullable=true,
+     *     description="How many breweries to return.")
+     *
      * @return array of BeerDTO
      */
     public function getBeersAction()
     {
+        $offset = $paramFetcher->get('offset');
+        $limit  = $paramFetcher->get('limit');
+
         $em    = $this->getDoctrine()->getManager();
         $beers = $em ->getRepository('MaxpouBeerBundle:Beer')
-                     ->findBy([], ['name' => 'ASC']);
+                     ->findBy([], ['name' => 'ASC'], $limit, $offset);
 
         $beerCollection = array_map(function ($aBeer) {
             return $beerCollection[] = new BeerDTO($aBeer);
@@ -41,8 +51,9 @@ class BeerController extends FOSRestController
       * @ApiDoc(
       *  statusCodes={
       *      200="Returned when successful",
-      *      404="Returned when not found",
+      *      404="Returned when not found"
       * })
+      *
       * @return BeerDTO
       */
     public function getBeerAction($id)

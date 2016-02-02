@@ -16,4 +16,5 @@ parameters:
     mailer_password:   ~
 
     # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            f44197374e506917577c5d07dfe65a5a50022d77
+    session_name:      api_cookie_name

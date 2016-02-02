@@ -29,6 +29,7 @@ framework:
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
+        name: "%session_name%"
     fragments:       ~
     http_method_override: true
 
@@ -75,6 +76,7 @@ fos_rest:
         include_format: false
     view:
         view_response_listener: 'force'
+    param_fetcher_listener: true
 
 nelmio_api_doc:
     name:  "Web API doc"
