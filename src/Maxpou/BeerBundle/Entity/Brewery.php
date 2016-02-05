@@ -4,14 +4,19 @@ namespace Maxpou\BeerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Maxpou\BeerBundle\Model\BreweryInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Hateoas\Configuration\Annotation as Hateoas;
+
+use Maxpou\BeerBundle\Model\BreweryInterface;
 
 /**
  * Brewery
  *
  * @ORM\Table(name="brewery")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BreweryRepository")
+ * @Hateoas\Relation("self", href = @Hateoas\Route("api_get_brewerie", parameters = {"id" = "expr(object.getId())"}))
+ * @UniqueEntity("name")
  */
 class Brewery implements BreweryInterface
 {
@@ -21,7 +26,6 @@ class Brewery implements BreweryInterface
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
-     * @Assert\NotBlank()
      */
     private $id;
 
@@ -29,6 +33,7 @@ class Brewery implements BreweryInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -49,15 +54,17 @@ class Brewery implements BreweryInterface
      */
     private $beers;
 
-    public function __construct()
+    public function __construct($id = null)
     {
+        $this->id = $id;
         $this->beers = new ArrayCollection();
     }
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return UUID
      */
     public function getId()
     {
@@ -68,7 +75,6 @@ class Brewery implements BreweryInterface
      * Set name
      *
      * @param string $name
-     *
      * @return Brewery
      */
     public function setName($name)
@@ -92,7 +98,6 @@ class Brewery implements BreweryInterface
      * Set description
      *
      * @param string $description
-     *
      * @return Brewery
      */
     public function setDescription($description)
@@ -116,7 +121,6 @@ class Brewery implements BreweryInterface
      * Add beer
      *
      * @param \Maxpou\BeerBundle\Entity\Beer $beer
-     *
      * @return Brewery
      */
     public function addBeer(\Maxpou\BeerBundle\Entity\Beer $beer)

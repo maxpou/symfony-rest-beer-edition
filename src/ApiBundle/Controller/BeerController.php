@@ -29,7 +29,7 @@ class BeerController extends FOSRestController
      *
      * @return array of BeerDTO
      */
-    public function getBeersAction()
+    public function getBeersAction(ParamFetcher $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $limit  = $paramFetcher->get('limit');
@@ -39,7 +39,7 @@ class BeerController extends FOSRestController
                      ->findBy([], ['name' => 'ASC'], $limit, $offset);
 
         $beerCollection = array_map(function ($aBeer) {
-            return $beerCollection[] = new BeerDTO($aBeer);
+            return new BeerDTO($aBeer);
         }, $beers);
 
         return $beerCollection;

@@ -71,12 +71,15 @@ swiftmailer:
     spool:     { type: memory }
 
 fos_rest:
+    serializer:
+        serialize_null: true
     routing_loader:
         default_format: json
         include_format: false
     view:
         view_response_listener: 'force'
     param_fetcher_listener: true
+    body_listener: true
 
 nelmio_api_doc:
     name:  "Web API doc"

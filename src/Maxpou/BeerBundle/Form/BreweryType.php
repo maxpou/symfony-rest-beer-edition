@@ -26,7 +26,17 @@ class BreweryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Maxpou\BeerBundle\Entity\Brewery'
+            'data_class'         => 'Maxpou\BeerBundle\Entity\Brewery',
+            'csrf_protection'    => false,
+            'allow_extra_fields' => true
         ));
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return '';
     }
 }

@@ -35,6 +35,8 @@ This layer use Code First approach (by opposition to Database/Model First). It's
 
 Note that I use [DTO pattern](http://martinfowler.com/eaaCatalog/dataTransferObject.html). **Here**, it doesn't make any sense. But it's pretty cool for large applications.
 
+Warning: with DTOs, you're improve coupling between objects (violation of the [law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter)).
+
 
 ## Notes
 

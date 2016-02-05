@@ -22,15 +22,17 @@ class BreweryDTO
 
     private $beers;
 
-    public function __construct(BreweryInterface $brewery)
+    public function __construct(BreweryInterface $brewery = null)
     {
-        $this->id          = $brewery->getId();
-        $this->name        = $brewery->getName();
-        $this->description = $brewery->getDescription();
+        if ($brewery) {
+            $this->id          = $brewery->getId();
+            $this->name        = $brewery->getName();
+            $this->description = $brewery->getDescription();
 
-        $this->beers = array_map(function ($beerEntity) {
-            return new BeerDTO($beerEntity);
-        }, $brewery->getBeers()->toArray());
+            $this->beers = array_map(function ($beerEntity) {
+                return new BeerDTO($beerEntity);
+            }, $brewery->getBeers()->toArray());
+        }
     }
 
     /**

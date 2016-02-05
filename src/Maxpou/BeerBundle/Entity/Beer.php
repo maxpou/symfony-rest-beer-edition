@@ -3,14 +3,17 @@
 namespace Maxpou\BeerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Maxpou\BeerBundle\Model\BeerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Hateoas\Configuration\Annotation as Hateoas;
+
+use Maxpou\BeerBundle\Model\BeerInterface;
 
 /**
  * Beer
  *
  * @ORM\Table(name="beer")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BeerRepository")
+ * @Hateoas\Relation("self", href = @Hateoas\Route("api_get_beer", parameters = {"id" = "expr(object.getId())"}))
  */
 class Beer implements BeerInterface
 {
