@@ -7,8 +7,10 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Request;
 
-use ApiBundle\Dto\BeerDTO;
+use Maxpou\BeerBundle\Entity\Beer;
+use Maxpou\BeerBundle\Form\BeerType;
 
 /**
  * Beer controller
@@ -38,11 +40,7 @@ class BeerController extends FOSRestController
         $beers = $em ->getRepository('MaxpouBeerBundle:Beer')
                      ->findBy([], ['name' => 'ASC'], $limit, $offset);
 
-        $beerCollection = array_map(function ($aBeer) {
-            return new BeerDTO($aBeer);
-        }, $beers);
-
-        return $beerCollection;
+        return $beers;
     }
 
     /**
@@ -66,6 +64,40 @@ class BeerController extends FOSRestController
             throw new HttpException(404, 'Unable to find this Beer entity');
         }
 
-        return new BeerDTO($beer);
+        return $beer;
+    }
+
+    /**
+      * Add a Beer
+      *
+      * @ApiDoc(
+      *  statusCodes={
+      *       201="Returned when successful",
+      *       400="Returned when parameter is wrong"
+      *  },
+      *  input = {
+      *      "class" = "Maxpou\BeerBundle\Form\BeerType",
+      *      "name" = ""
+      * })
+      */
+    public function postBeerAction(Request $request)
+    {
+        $beer = new Beer();
+
+        $form = $this->createForm(BeerType::class, $beer);
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($beer);
+            $em->flush();
+
+            $view = $this->view($beer, 201);
+        } else {
+            $view = $this->view($form, 400);
+        }
+
+
+        return $this->handleView($view);
     }
 }

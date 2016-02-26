@@ -14,7 +14,6 @@ use Maxpou\BeerBundle\Form\BreweryType;
 
 /**
  * Branche controller.
- *
  */
 class BreweryController extends FOSRestController
 {
@@ -46,6 +45,7 @@ class BreweryController extends FOSRestController
       * Get a Brewery entity
       *
       * @ApiDoc(
+      * resourceDescription = "aaa",
       *  statusCodes={
       *      200="Returned when successful",
       *      400="Returned when parameter is wrong",
@@ -73,17 +73,19 @@ class BreweryController extends FOSRestController
       *  statusCodes={
       *      201="Returned when successful",
       *      400="Returned when parameter is wrong"
-      * },
-      * input = {
-      *     "class" = "Maxpou\BeerBundle\Form\BreweryType"
-      * })
+      *  },
+      *  input = {
+      *      "class" = "Maxpou\BeerBundle\Form\BreweryType",
+      *      "name" = ""
+      *  },
+      * )
       */
     public function postBrewerieAction(Request $request)
     {
         $brewery = new Brewery();
 
         $form = $this->createForm(BreweryType::class, $brewery);
-        $form->handleRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -91,10 +93,12 @@ class BreweryController extends FOSRestController
             $em->flush();
 
             $view = $this->view($brewery, 201);
-            return $this->handleView($view);
+        } else {
+            $view = $this->view($form, 400);
         }
 
-        return $form;
+
+        return $this->handleView($view);
     }
 
     /**
@@ -102,12 +106,13 @@ class BreweryController extends FOSRestController
      *
      * @ApiDoc(
      *  statusCodes={
-     *      200="Returned when successful",
+     *      204 = "Returned when successful",
+     *      404="Returned when not found",
      *      400="Returned when parameter is wrong"
      * },
      * input = {
      *     "class" = "Maxpou\BeerBundle\Form\BreweryType",
-     *     "name" = "",
+     *     "name" = ""
      * })
      */
     public function putBrewerieAction(Request $request, $id)
@@ -120,28 +125,43 @@ class BreweryController extends FOSRestController
             throw new HttpException(404, 'Unable to find this Brewery entity');
         }
 
-        //remember childs
-        $ownBeers = $brewery->getBeers();
-        $brewery = new Brewery($id);
-        
-        foreach ($ownBeers as $aBeer) {
-            return $brewery->addBeer($aBeer);
-        }
-
-
         $form = $this->createForm(BreweryType::class, $brewery);
-        $form->handleRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($brewery);
             $em->flush();
 
-            $view = $this->view($brewery, 200);
+            $view = $this->view(null, 204);
             return $this->handleView($view);
+        } else {
+            $view = $this->view($form, 400);
         }
 
-        return $form;
+        return $view;
+    }
 
+    /**
+     * Delete brewery
+     *
+     * @ApiDoc(
+     *  statusCodes={
+     *      204="Returned when successful"
+     * })
+     */
+    public function deleteBrewerieAction(Request $request, $id)
+    {
+        $brewery = $this->getDoctrine()->getManager()
+                        ->getRepository('MaxpouBeerBundle:Brewery')
+                        ->find($id);
+
+        if ($brewery) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($brewery);
+            $em->flush();
+        }
+
+        return $this->view(null, 204);
     }
 }

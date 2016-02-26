@@ -37,7 +37,7 @@ class Beer implements BeerInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -57,7 +57,7 @@ class Beer implements BeerInterface
      *
      * @var \Maxpou\BeerBundle\Entity\Brewery
      *
-     * @ORM\ManyToOne(targetEntity="Brewery", inversedBy="beers")
+     * @ORM\ManyToOne(targetEntity="Brewery", inversedBy="beers", cascade={"remove"})
      * @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false)
      */
     private $brewery;

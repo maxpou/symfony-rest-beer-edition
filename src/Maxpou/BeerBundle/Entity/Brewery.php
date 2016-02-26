@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 use Maxpou\BeerBundle\Model\BreweryInterface;
+use Maxpou\BeerBundle\Entity\Beer;
 
 /**
  * Brewery
@@ -49,7 +50,7 @@ class Brewery implements BreweryInterface
      *
      * @var \Maxpou\BeerBundle\Entity\Beer
      *
-     * @ORM\OneToMany(targetEntity="Beer", mappedBy="brewery")
+     * @ORM\OneToMany(targetEntity="Beer", mappedBy="brewery", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $beers;
@@ -120,10 +121,10 @@ class Brewery implements BreweryInterface
     /**
      * Add beer
      *
-     * @param \Maxpou\BeerBundle\Entity\Beer $beer
+     * @param Beer $beer
      * @return Brewery
      */
-    public function addBeer(\Maxpou\BeerBundle\Entity\Beer $beer)
+    public function addBeer(Beer $beer)
     {
         $this->beers[] = $beer;
 
@@ -133,9 +134,9 @@ class Brewery implements BreweryInterface
     /**
      * Remove beer
      *
-     * @param \Maxpou\BeerBundle\Entity\Beer $beer
+     * @param Beer $beer
      */
-    public function removeBeer(\Maxpou\BeerBundle\Entity\Beer $beer)
+    public function removeBeer(Beer $beer)
     {
         $this->beers->removeElement($beer);
     }

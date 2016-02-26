@@ -13,7 +13,7 @@ Symfony, REST API and DTO (Work in progress)
 composer install
 php app/console doctrine:database:create  
 php app/console doctrine:schema:create  
-php app/console doctrine:fixtures:load
+php app/console doctrine:fixtures:load -n
 ```
 3. Execute `php app/check.php`
 
@@ -30,8 +30,6 @@ Some informations:
 This layer use Code First approach (by opposition to Database/Model First). It's mean that I start by writing classes not model/SQL DDL orders. Otherwise it's hard to maintain (I know, doctrine is reverse engineering compliant).
 
 ### Second step: REST API ♥ (ApiBundle)
-
-@TODO: setting up the *(real)* REST API  (ApiBundle)
 
 Note that I use [DTO pattern](http://martinfowler.com/eaaCatalog/dataTransferObject.html). **Here**, it doesn't make any sense. But it's pretty cool for large applications.
 

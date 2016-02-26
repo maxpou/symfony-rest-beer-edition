@@ -2,7 +2,6 @@
 
 namespace Maxpou\BeerBundle\Model;
 
-use Maxpou\BeerBundle\Entity\Beer;
 
 interface BreweryInterface
 {
@@ -15,10 +14,4 @@ interface BreweryInterface
     public function setDescription($description);
 
     public function getDescription();
-
-    public function addBeer(Beer $beer);
-
-    public function removeBeer(Beer $beer);
-
-    public function getBeers();
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class BeerType extends AbstractType
 {
@@ -19,9 +19,12 @@ class BeerType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('alcohol')
+            ->add('alcohol', NumberType::class, array(
+                'description'  => 'Beer alcohol degree (must be > 5°)',
+            ))
             ->add('brewery', EntityType::class, array(
-                'class' => 'Maxpou\BeerBundle\Entity\Brewery',
+                'class'        => 'Maxpou\BeerBundle\Entity\Brewery',
+                'description'  => 'Brewery id',
                 'choice_label' => 'name',
                 'expanded' => false,
                 'multiple' => false
@@ -35,9 +38,14 @@ class BeerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Maxpou\BeerBundle\Entity\Beer',
+            'data_class'         => 'Maxpou\BeerBundle\Entity\Beer',
             'csrf_protection'    => false,
             'allow_extra_fields' => true
         ));
+    }
+
+    public function getName()
+    {
+        return '';
     }
 }
