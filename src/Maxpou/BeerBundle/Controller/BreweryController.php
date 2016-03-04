@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Maxpou\BeerBundle\Entity\Brewery;
-use Maxpou\BeerBundle\Form\BreweryType;
+use Maxpou\BeerBundle\Form\Type\BreweryType;
 
 /**
  * Brewery controller.

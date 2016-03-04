@@ -1,6 +1,6 @@
 <?php
 
-namespace Maxpou\BeerBundle\Form;
+namespace Maxpou\BeerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

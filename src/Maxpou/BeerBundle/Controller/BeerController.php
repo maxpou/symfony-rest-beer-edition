@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Maxpou\BeerBundle\Entity\Beer;
-use Maxpou\BeerBundle\Form\BeerType;
+use Maxpou\BeerBundle\Form\Type\BeerType;
 
 /**
  * Beer controller.

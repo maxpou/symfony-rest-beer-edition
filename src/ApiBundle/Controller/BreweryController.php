@@ -10,7 +10,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Maxpou\BeerBundle\Entity\Brewery;
-use Maxpou\BeerBundle\Form\BreweryType;
+use Maxpou\BeerBundle\Form\Type\BreweryType;
 
 /**
  * Branche controller.
@@ -106,7 +106,7 @@ class BreweryController extends FOSRestController
      *
      * @ApiDoc(
      *  statusCodes={
-     *      204 = "Returned when successful",
+     *      204="Returned when successful",
      *      404="Returned when not found",
      *      400="Returned when parameter is wrong"
      * },
@@ -150,7 +150,7 @@ class BreweryController extends FOSRestController
      *      204="Returned when successful"
      * })
      */
-    public function deleteBrewerieAction(Request $request, $id)
+    public function deleteBrewerieAction($id)
     {
         $brewery = $this->getDoctrine()->getManager()
                         ->getRepository('MaxpouBeerBundle:Brewery')

@@ -49,6 +49,7 @@ class Beer implements BeerInterface
      *     value = 5,
      *     message= "Please, provide real beer ;-) ({{ compared_value }}° minimum)"
      * )
+     * @Assert\NotNull()
      */
     private $alcohol;
 
@@ -59,6 +60,7 @@ class Beer implements BeerInterface
      *
      * @ORM\ManyToOne(targetEntity="Brewery", inversedBy="beers", cascade={"remove"})
      * @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false)
+     * @Assert\NotNull()
      */
     private $brewery;
 
@@ -151,7 +153,7 @@ class Beer implements BeerInterface
      *
      * @return Beer
      */
-    public function setBrewery(\Maxpou\BeerBundle\Entity\Brewery $brewery)
+    public function setBrewery(\Maxpou\BeerBundle\Entity\Brewery $brewery = null)
     {
         $this->brewery = $brewery;
 
