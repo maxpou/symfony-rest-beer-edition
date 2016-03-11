@@ -80,6 +80,8 @@ fos_rest:
         view_response_listener: 'force'
     param_fetcher_listener: true
     body_listener: true
+    service:
+        inflector: apibundle.util.inflector
 
 nelmio_api_doc:
     name:  "Web API doc"

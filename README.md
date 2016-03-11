@@ -31,6 +31,18 @@ This layer use Code First approach (by opposition to Database/Model First). It's
 
 ### Second step: REST API ♥ (ApiBundle)
 
+**Pluralization:**
+
+* beer -> beers
+* brewery -> breweries.  
+I use Inflector class to pluralize Breweries (because brewerys do not work!). See ApiBundle\Util\Inflector\BreweryInflector.
+
+
+**Documentation:** See `/api/doc`. Thanks to [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle)
+
+**Hateoas:**: @TODO write
+
+@TODO: remove
 Note that I use [DTO pattern](http://martinfowler.com/eaaCatalog/dataTransferObject.html). **Here**, it doesn't make any sense. But it's pretty cool for large applications.
 
 Warning: with DTOs, you're improve coupling between objects (violation of the [law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter)).
@@ -40,6 +52,11 @@ Warning: with DTOs, you're improve coupling between objects (violation of the [l
 
 I know, it's ugly. But I'm a back-end developer ;-)
 
-@TODO:  
-[ ] Write unit tests  
-[ ] Add Travis  
+
+## TODO
+
+- [ ] Complete this README.md
+- [ ] Remove all todo in code
+- [ ] Write unit tests  
+- [ ] Test with [DHC](https://dhc.restlet.com/)  
+- [ ] Add Travis  

@@ -4,21 +4,24 @@ namespace ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use Maxpou\BeerBundle\Entity\Beer;
 use Maxpou\BeerBundle\Form\Type\BeerType;
 
 /**
  * Beer controller
+ * @RouteResource("beer")
  */
 class BeerController extends FOSRestController
 {
     /**
-     * Bet all Beers entities
+     * Get all Beers entities
      *
      * @ApiDoc(
      *  statusCodes={
@@ -29,7 +32,7 @@ class BeerController extends FOSRestController
      * @QueryParam(name="limit", requirements="\d+", nullable=true,
      *     description="How many breweries to return.")
      */
-    public function getBeersAction(ParamFetcher $paramFetcher)
+    public function cgetAction($breweryId, ParamFetcher $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $limit  = $paramFetcher->get('limit');
@@ -42,7 +45,7 @@ class BeerController extends FOSRestController
     }
 
     /**
-      * Bet a Beer entity
+      * Get a Beer entity
       *
       * @ApiDoc(
       *  statusCodes={
@@ -50,11 +53,11 @@ class BeerController extends FOSRestController
       *      404="Returned when not found"
       * })
       */
-    public function getBeerAction($id)
+    public function getAction($breweryId, $beerId)
     {
         $beer = $this->getDoctrine()->getManager()
                         ->getRepository('MaxpouBeerBundle:Beer')
-                        ->find($id);
+                        ->find($beerId);
 
         if (!$beer) {
             throw new HttpException(404, 'Unable to find this Beer entity');
@@ -76,7 +79,7 @@ class BeerController extends FOSRestController
       *      "name" = ""
       * })
       */
-    public function postBeerAction(Request $request)
+    public function postAction($breweryId, Request $request)
     {
         $beer = new Beer();
 
@@ -112,11 +115,11 @@ class BeerController extends FOSRestController
      * })
      * @TODO: repair :-(
      */
-    public function putBeerAction(Request $request, $id)
+    public function putAction($breweryId, Request $request, $beerId)
     {
         $beer = $this->getDoctrine()->getManager()
                      ->getRepository('MaxpouBeerBundle:Beer')
-                     ->find($id);
+                     ->find($beerId);
 
         if (!$beer) {
             throw new HttpException(404, 'Unable to find this Beer entity');
@@ -147,11 +150,11 @@ class BeerController extends FOSRestController
      *      204="Returned when successful"
      * })
      */
-    public function deleteBeerAction($id)
+    public function deleteAction($breweryId, $beerId)
     {
         $beer = $this->getDoctrine()->getManager()
                      ->getRepository('MaxpouBeerBundle:Beer')
-                     ->find($id);
+                     ->find($beerId);
 
         if ($beer) {
             $em = $this->getDoctrine()->getManager();
@@ -160,5 +163,22 @@ class BeerController extends FOSRestController
         }
 
         return $this->view(null, 204);
+    }
+
+    /**
+     * Options
+     *
+     * @ApiDoc(
+     *  statusCodes={
+     *      200="Returned when successful"
+     * })
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function coptionsAction($breweryId)
+    {
+        $response = new Response();
+        $response->headers->set('Allow', 'OPTIONS, GET, POST, DELETE');
+
+        return $response;
     }
 }

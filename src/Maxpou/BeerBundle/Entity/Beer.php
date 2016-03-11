@@ -4,6 +4,8 @@ namespace Maxpou\BeerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 use Maxpou\BeerBundle\Model\BeerInterface;
@@ -13,7 +15,10 @@ use Maxpou\BeerBundle\Model\BeerInterface;
  *
  * @ORM\Table(name="beer")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BeerRepository")
- * @Hateoas\Relation("self", href = @Hateoas\Route("api_get_beer", parameters = {"id" = "expr(object.getId())"}))
+ * @Hateoas\Relation("self", href = @Hateoas\Route("api_get_brewery_beers",
+ *   parameters = {"breweryId" = "expr(object.getBreweryId())", "beerId" = "expr(object.getId())" }
+ * ))
+ * @ExclusionPolicy("none")
  */
 class Beer implements BeerInterface
 {
@@ -61,6 +66,7 @@ class Beer implements BeerInterface
      * @ORM\ManyToOne(targetEntity="Brewery", inversedBy="beers", cascade={"remove"})
      * @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false)
      * @Assert\NotNull()
+     * @Exclude
      */
     private $brewery;
 
@@ -168,5 +174,15 @@ class Beer implements BeerInterface
     public function getBrewery()
     {
         return $this->brewery;
+    }
+
+    /**
+     * Get brewery
+     *
+     * @return \Maxpou\BeerBundle\Entity\Brewery
+     */
+    public function getBreweryId()
+    {
+        return $this->brewery->getId();
     }
 }

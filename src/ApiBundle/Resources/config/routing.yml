@@ -5,5 +5,6 @@ api_brewery_rest:
 
 api_beer_rest:
     type:   rest
+    parent:   api_brewery_rest
     resource:   ApiBundle\Controller\BeerController
     name_prefix:  api_

@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\AccessType;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 use Maxpou\BeerBundle\Model\BreweryInterface;
@@ -16,7 +20,17 @@ use Maxpou\BeerBundle\Entity\Beer;
  *
  * @ORM\Table(name="brewery")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BreweryRepository")
- * @Hateoas\Relation("self", href = @Hateoas\Route("api_get_brewerie", parameters = {"id" = "expr(object.getId())"}))
+ * @Hateoas\Relation(
+ *   "self",
+ *   href = @Hateoas\Route("api_get_brewery",
+ *   parameters = {"breweryId" = "expr(object.getId())"}
+ * ))
+ * @Hateoas\Relation("beers", href = @Hateoas\Route(
+ *   "api_get_brewery_beers",
+ *   parameters = {"breweryId" = "expr(object.getId())"},
+ *  ),
+ *  exclusion = @Hateoas\Exclusion(groups = {"details"})
+ * )
  * @UniqueEntity("name")
  */
 class Brewery implements BreweryInterface
@@ -27,6 +41,7 @@ class Brewery implements BreweryInterface
      * @ORM\Column(name="id", type="guid")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
+     * @Groups({"list", "details"})
      */
     private $id;
 
@@ -34,6 +49,7 @@ class Brewery implements BreweryInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"list", "details"})
      * @Assert\NotBlank()
      */
     private $name;
@@ -42,6 +58,7 @@ class Brewery implements BreweryInterface
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Groups({"details"})
      */
     private $description;
 
@@ -52,6 +69,7 @@ class Brewery implements BreweryInterface
      *
      * @ORM\OneToMany(targetEntity="Beer", mappedBy="brewery", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Exclude
      */
     private $beers;
 
