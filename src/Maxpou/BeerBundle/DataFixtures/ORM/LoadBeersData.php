@@ -1,11 +1,10 @@
 <?php
-namespace AppBundle\DataFixtures\ORM;
+namespace Maxpou\BeerBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-
-use Maxpou\BeerBundle\Entity\Brewery;
 use Maxpou\BeerBundle\Entity\Beer;
+use Maxpou\BeerBundle\Entity\Brewery;
 
 class LoadBeersData implements FixtureInterface
 {

@@ -2,17 +2,17 @@
 
 namespace ApiBundle\Controller;
 
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Maxpou\BeerBundle\Entity\Beer;
+use Maxpou\BeerBundle\Form\Type\BeerApiType;
+use Maxpou\BeerBundle\Form\Type\BeerType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-use Maxpou\BeerBundle\Entity\Beer;
-use Maxpou\BeerBundle\Form\Type\BeerType;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Beer controller
@@ -39,7 +39,10 @@ class BeerController extends FOSRestController
 
         $em    = $this->getDoctrine()->getManager();
         $beers = $em ->getRepository('MaxpouBeerBundle:Beer')
-                     ->findBy([], ['name' => 'ASC'], $limit, $offset);
+                     ->findBy(
+                         ['brewery' => $breweryId],
+                         ['name' => 'ASC'], $limit, $offset
+                     );
 
         return $beers;
     }
@@ -55,6 +58,14 @@ class BeerController extends FOSRestController
       */
     public function getAction($breweryId, $beerId)
     {
+        $brewery = $this->getDoctrine()->getManager()
+                        ->getRepository('MaxpouBeerBundle:Brewery')
+                        ->find($breweryId);
+
+        if (!$brewery) {
+            throw new HttpException(404, 'Unable to find this Brewery entity');
+        }
+
         $beer = $this->getDoctrine()->getManager()
                         ->getRepository('MaxpouBeerBundle:Beer')
                         ->find($beerId);
@@ -75,15 +86,25 @@ class BeerController extends FOSRestController
       *       400="Returned when parameter is wrong"
       *  },
       *  input = {
-      *      "class" = "Maxpou\BeerBundle\Form\BeerType",
-      *      "name" = ""
+      *      "class" = "Maxpou\BeerBundle\Form\Type\BeerApiType",
+      *      "name"  = ""
       * })
       */
     public function postAction($breweryId, Request $request)
     {
-        $beer = new Beer();
+        $brewery = $this->getDoctrine()->getManager()
+                        ->getRepository('MaxpouBeerBundle:Brewery')
+                        ->find($breweryId);
 
-        $form = $this->createForm(BeerType::class, $beer);
+        if (!$brewery) {
+            throw new HttpException(404, 'Unable to find this Brewery entity');
+        }
+
+
+        $beer = new Beer();
+        $beer->setBrewery($brewery);
+
+        $form = $this->createForm(BeerApiType::class, $beer);
         $form->submit($request);
 
         if ($form->isValid()) {
@@ -95,7 +116,6 @@ class BeerController extends FOSRestController
         } else {
             $view = $this->view($form, 400);
         }
-
 
         return $this->handleView($view);
     }
@@ -110,8 +130,8 @@ class BeerController extends FOSRestController
      *      400="Returned when parameter is wrong"
      * },
      * input = {
-     *     "class" = "Maxpou\BeerBundle\Form\BeerType",
-     *     "name" = ""
+     *     "class" = "Maxpou\BeerBundle\Form\Type\BeerType",
+     *     "name"  = ""
      * })
      * @TODO: repair :-(
      */
@@ -134,6 +154,7 @@ class BeerController extends FOSRestController
             $em->flush();
 
             $view = $this->view(null, 204);
+
             return $this->handleView($view);
         } else {
             $view = $this->view($form, 400);

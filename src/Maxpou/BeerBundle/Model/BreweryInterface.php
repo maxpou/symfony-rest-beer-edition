@@ -2,7 +2,6 @@
 
 namespace Maxpou\BeerBundle\Model;
 
-
 interface BreweryInterface
 {
     public function getId();

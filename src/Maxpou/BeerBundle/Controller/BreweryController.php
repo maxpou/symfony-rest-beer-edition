@@ -2,11 +2,10 @@
 
 namespace Maxpou\BeerBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Maxpou\BeerBundle\Entity\Brewery;
 use Maxpou\BeerBundle\Form\Type\BreweryType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Brewery controller.

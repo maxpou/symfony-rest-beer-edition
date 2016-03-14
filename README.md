@@ -52,6 +52,9 @@ Warning: with DTOs, you're improve coupling between objects (violation of the [l
 
 I know, it's ugly. But I'm a back-end developer ;-)
 
+## Tests
+
+`phpunit -c app ./src`
 
 ## TODO
 

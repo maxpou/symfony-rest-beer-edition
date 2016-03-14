@@ -3,21 +3,23 @@
 namespace Maxpou\BeerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Exclude;
 use Hateoas\Configuration\Annotation as Hateoas;
-
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 use Maxpou\BeerBundle\Model\BeerInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Beer
  *
  * @ORM\Table(name="beer")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BeerRepository")
- * @Hateoas\Relation("self", href = @Hateoas\Route("api_get_brewery_beers",
- *   parameters = {"breweryId" = "expr(object.getBreweryId())", "beerId" = "expr(object.getId())" }
- * ))
+ * @Hateoas\Relation(
+ *   "self",
+ *   href = @Hateoas\Route("api_get_brewery_beer",
+ *     parameters = {"breweryId" = "expr(object.getBreweryId())", "beerId" = "expr(object.getId())"
+ *   })
+ * )
  * @ExclusionPolicy("none")
  */
 class Beer implements BeerInterface

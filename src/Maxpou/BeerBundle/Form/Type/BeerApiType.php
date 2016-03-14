@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BeerType extends AbstractType
+class BeerApiType extends BeerType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,19 +16,10 @@ class BeerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('alcohol', NumberType::class, array(
-                'description'  => 'Beer alcohol degree (must be > 5°)',
-            ))
-            ->add('brewery', EntityType::class, array(
-                'class'        => 'Maxpou\BeerBundle\Entity\Brewery',
-                'description'  => 'Brewery id',
-                'choice_label' => 'name',
-                'expanded' => false,
-                'multiple' => false
-            ))
+            ->remove('brewery')
         ;
     }
 

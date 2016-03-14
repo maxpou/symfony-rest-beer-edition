@@ -2,21 +2,19 @@
 
 namespace ApiBundle\Controller;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
-use FOS\RestBundle\Controller\Annotations\RequestParam;
-use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\Options;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\Serializer\SerializationContext;
-
 use Maxpou\BeerBundle\Entity\Brewery;
 use Maxpou\BeerBundle\Form\Type\BreweryType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Branche controller.
@@ -116,7 +114,6 @@ class BreweryController extends FOSRestController
             $view = $this->view($form, 400);
         }
 
-
         return $this->handleView($view);
     }
 
@@ -157,6 +154,7 @@ class BreweryController extends FOSRestController
             $em->flush();
 
             $view = $this->view(null, 204);
+
             return $this->handleView($view);
         } else {
             $view = $this->view($form, 400);
@@ -191,8 +189,6 @@ class BreweryController extends FOSRestController
 
         return $this->view(null, 204);
     }
-
-
 
     /**
      * Delete all breweries
@@ -232,6 +228,7 @@ class BreweryController extends FOSRestController
     {
         $response = new Response();
         $response->headers->set('Allow', 'OPTIONS, GET, POST, DELETE');
+
         return $response;
     }
 }
