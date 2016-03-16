@@ -20,7 +20,8 @@ before_script:
 script:
   #- phpunit -c app --coverage-text
   - mkdir -p build/coverage
-  - phpunit -c app --coverage-clover build/coverage/clover.xml
-
-after_success:
+  - phpunit -c app --coverage-text --coverage-clover build/coverage/clover.xml
   - bin/coveralls -v
+
+#after_success:
+#  - bin/coveralls -v
