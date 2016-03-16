@@ -1,6 +1,6 @@
 {
-    "name": "maxpou/symfony-rest-api-and-dto",
-    "description": "Simple Symfony app with a REST API and DTO design pattern",
+    "name": "maxpou/symfony-rest-beer-edition",
+    "description": "Simple Symfony app which a real REST API",
     "keywords": ["symfony","REST","DTO"],
     "license": "MIT",
     "type": "project",
@@ -20,7 +20,7 @@
       }
     ],
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.4",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
