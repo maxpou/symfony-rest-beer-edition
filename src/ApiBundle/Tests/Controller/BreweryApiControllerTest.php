@@ -43,6 +43,7 @@ class BreweryApiControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
+        $this->assertEquals($response->headers->get('allow'), 'OPTIONS, GET, POST, DELETE');
     }
 
     public function testPost()
@@ -83,6 +84,7 @@ class BreweryApiControllerTest extends WebTestCase
     }
 
     /**
+     * Test: 400, 404 and 204
      * @depends testPost
      */
     public function testPut($generatedBreweryId)
@@ -104,6 +106,22 @@ class BreweryApiControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertEquals(400, $response->getStatusCode(), $response->getContent());
         $this->assertContains('This value should not be blank.', $response->getContent(), $response->getContent());
+
+        //Fail (mandatory field)
+        $client->request(
+            'PUT',
+            '/api/breweries/ThisBreweryDoesNotExist',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{
+                "description":"Ardet nec consumitur"
+            }'
+        );
+
+        $response = $client->getResponse();
+        $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
+        $this->assertContains('Unable to find this Brewery entity', $response->getContent(), $response->getContent());
 
 
         $client->request(
@@ -128,6 +146,14 @@ class BreweryApiControllerTest extends WebTestCase
     public function testGet($generatedBreweryId)
     {
         $client = static::createClient();
+
+        $client->request('GET', '/api/breweries/ThisBreweryDoesNotExist');
+
+        $response = $client->getResponse();
+        $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
+        $data = json_decode($response->getContent(), true);
+        $this->assertContains('Unable to find this Brewery entity', $response->getContent(), $response->getContent());
+
 
         $client->request('GET', '/api/breweries/'.$generatedBreweryId);
 
@@ -169,7 +195,7 @@ class BreweryApiControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
 
-        //Check
+        //Ensure
         $client->request('GET', '/api/breweries');
 
         $response = $client->getResponse();

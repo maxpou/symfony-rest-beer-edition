@@ -35,7 +35,7 @@ class BeerApiType extends BeerType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return '';
     }

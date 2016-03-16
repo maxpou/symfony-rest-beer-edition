@@ -58,6 +58,7 @@ class BreweryController extends FOSRestController
       *      400="Returned when parameter is wrong",
       *      404="Returned when not found"
       * })
+      * @param UUID $breweryId Brewery Id
       */
     public function getAction($breweryId)
     {
@@ -100,7 +101,8 @@ class BreweryController extends FOSRestController
         $brewery = new Brewery();
 
         $form = $this->createForm(BreweryType::class, $brewery);
-        $form->submit($request);
+
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -130,13 +132,10 @@ class BreweryController extends FOSRestController
      *     "class" = "Maxpou\BeerBundle\Form\Type\BreweryType",
      *     "name" = ""
      * })
+     * @param UUID $breweryId Brewery Id
      */
     public function putAction(Request $request, $breweryId)
     {
-    //  * @Route(requirements={
-    //  *   "breweryId": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-    //  * })
-    //  * @param UUID $breweryId Brewery Id
         $brewery = $this->getDoctrine()->getManager()
                         ->getRepository('MaxpouBeerBundle:Brewery')
                         ->find($breweryId);
@@ -146,7 +145,7 @@ class BreweryController extends FOSRestController
         }
 
         $form = $this->createForm(BreweryType::class, $brewery);
-        $form->submit($request);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -192,7 +191,6 @@ class BreweryController extends FOSRestController
 
     /**
      * Delete all breweries
-     * Todo: do it properly (reduce SQL request!)
      *
      * @ApiDoc(
      *  statusCodes={

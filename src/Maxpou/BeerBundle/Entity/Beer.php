@@ -65,7 +65,7 @@ class Beer implements BeerInterface
      *
      * @var \Maxpou\BeerBundle\Entity\Brewery
      *
-     * @ORM\ManyToOne(targetEntity="Brewery", inversedBy="beers", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Brewery", inversedBy="beers")
      * @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false)
      * @Assert\NotNull()
      * @Exclude

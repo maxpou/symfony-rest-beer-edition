@@ -15,43 +15,75 @@ class LoadBeersData implements FixtureInterface
         $brewery->setName('Bosteels brewery');
         $brewery->setDescription('bosteels brewery');
         $manager->persist($brewery);
-
         $beer = new Beer();
         $beer->setName('Kwak');
         $beer->setAlcohol('8.4');
         $beer->setBrewery($brewery);
+        $brewery->setDescription('<3');
         $manager->persist($beer);
-
         $beer = new Beer();
         $beer->setName('Tripel Karmeliet');
         $beer->setAlcohol('8.4');
         $beer->setBrewery($brewery);
+        $brewery->setDescription('Miam');
         $manager->persist($beer);
-
         $beer = new Beer();
         $beer->setName('Deus');
         $beer->setAlcohol('10');
         $beer->setBrewery($brewery);
         $manager->persist($beer);
 
+        $brewery = new Brewery();
+        $brewery->setName('Duvel Moortgat');
+        $brewery->setDescription('Since 1871');
+        $manager->persist($brewery);
+        $beer = new Beer();
+        $beer->setName('Duvel');
+        $beer->setAlcohol('8.5');
+        $beer->setBrewery($brewery);
+        $manager->persist($beer);
+        $beer = new Beer();
+        $beer->setName('Duvel tripel hop');
+        $beer->setAlcohol('9.5');
+        $beer->setBrewery($brewery);
+        $manager->persist($beer);
+        $beer = new Beer();
+        $beer->setName('La Chouffe');
+        $beer->setAlcohol('8');
+        $beer->setBrewery($brewery);
+        $manager->persist($beer);
+        $beer = new Beer();
+        $beer->setName('Maredsous 6° blond');
+        $beer->setAlcohol('6');
+        $beer->setBrewery($brewery);
+        $manager->persist($beer);
+        $beer = new Beer();
+        $beer->setName('Maredsous 8° brown');
+        $beer->setAlcohol('8');
+        $beer->setBrewery($brewery);
+        $manager->persist($beer);
+        $beer = new Beer();
+        $beer->setName('Maredsous 10° tripel');
+        $beer->setAlcohol('8');
+        $beer->setBrewery($brewery);
+        $brewery->setDescription('The hangover');
+        $manager->persist($beer);
+
         //Affligem
         $brewery = new Brewery();
         $brewery->setName('Affligem Brewery');
-        $brewery->setDescription('bosteels brewery');
+        $brewery->setDescription('The abbey of Affligem was founded around 1074');
         $manager->persist($brewery);
-
         $beer = new Beer();
         $beer->setName('Affligem Blond');
         $beer->setAlcohol('6.8');
         $beer->setBrewery($brewery);
         $manager->persist($beer);
-
         $beer = new Beer();
         $beer->setName('Affligem Dubbel');
         $beer->setAlcohol('6.8');
         $beer->setBrewery($brewery);
         $manager->persist($beer);
-
         $beer = new Beer();
         $beer->setName('Affligem Tripel');
         $beer->setAlcohol('8.5');

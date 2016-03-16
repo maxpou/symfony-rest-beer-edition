@@ -31,6 +31,7 @@ class BeerController extends FOSRestController
      *     description="Offset from which to start listing breweries.")
      * @QueryParam(name="limit", requirements="\d+", nullable=true,
      *     description="How many breweries to return.")
+     * @param UUID $breweryId Brewery Id
      */
     public function cgetAction($breweryId, ParamFetcher $paramFetcher)
     {
@@ -55,6 +56,8 @@ class BeerController extends FOSRestController
       *      200="Returned when successful",
       *      404="Returned when not found"
       * })
+      * @param UUID $breweryId Brewery Id
+      * @param UUID $beerId    Beer Id
       */
     public function getAction($breweryId, $beerId)
     {
@@ -89,6 +92,7 @@ class BeerController extends FOSRestController
       *      "class" = "Maxpou\BeerBundle\Form\Type\BeerApiType",
       *      "name"  = ""
       * })
+      * @param UUID $breweryId Brewery Id
       */
     public function postAction($breweryId, Request $request)
     {
@@ -100,12 +104,11 @@ class BeerController extends FOSRestController
             throw new HttpException(404, 'Unable to find this Brewery entity');
         }
 
-
         $beer = new Beer();
         $beer->setBrewery($brewery);
 
         $form = $this->createForm(BeerApiType::class, $beer);
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -130,10 +133,11 @@ class BeerController extends FOSRestController
      *      400="Returned when parameter is wrong"
      * },
      * input = {
-     *     "class" = "Maxpou\BeerBundle\Form\Type\BeerType",
+     *     "class" = "Maxpou\BeerBundle\Form\Type\BeerApiType",
      *     "name"  = ""
      * })
-     * @TODO: repair :-(
+     * @param UUID $breweryId Brewery Id
+     * @param UUID $beerId    Beer Id
      */
     public function putAction($breweryId, Request $request, $beerId)
     {
@@ -145,8 +149,8 @@ class BeerController extends FOSRestController
             throw new HttpException(404, 'Unable to find this Beer entity');
         }
 
-        $form = $this->createForm(BeerType::class, $beer);
-        $form->submit($request);
+        $form = $this->createForm(BeerApiType::class, $beer);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -170,6 +174,9 @@ class BeerController extends FOSRestController
      *  statusCodes={
      *      204="Returned when successful"
      * })
+     * @param UUID $breweryId Brewery Id
+     * @param UUID $beerId    Beer Id
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function deleteAction($breweryId, $beerId)
     {
@@ -187,12 +194,45 @@ class BeerController extends FOSRestController
     }
 
     /**
+     * Delete all beers from a breweries entity
+     *
+     * @ApiDoc(
+     *  statusCodes={
+     *      204="Returned when successful"
+     * })
+     * @param UUID $breweryId Brewery Id
+     */
+    public function cdeleteAction($breweryId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $brewery = $em->getRepository('MaxpouBeerBundle:Brewery')
+                      ->find($breweryId);
+
+        if (!$brewery) {
+            throw new HttpException(404, 'Unable to find this Brewery entity');
+        }
+
+        $beers = $em->getRepository('MaxpouBeerBundle:Beer')
+                    ->findByBrewery($brewery);
+
+        if ($beers) {
+            foreach ($beers as $beer) {
+                $em->remove($beer);
+            }
+            $em->flush();
+        }
+
+        return $this->view(null, 204);
+    }
+
+    /**
      * Options
      *
      * @ApiDoc(
      *  statusCodes={
      *      200="Returned when successful"
      * })
+     * @param UUID $breweryId Brewery Id
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function coptionsAction($breweryId)
