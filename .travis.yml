@@ -19,8 +19,8 @@ before_script:
 
 script:
   #- phpunit -c app --coverage-text
-  - mkdir -p build/coverage
-  - phpunit -c app --coverage-text --coverage-clover build/coverage/clover.xml
+  - mkdir -p build/logs
+  - phpunit -c app --coverage-text --coverage-clover build/logs/clover.xml
   - bin/coveralls -v
 
 #after_success:
