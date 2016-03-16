@@ -1,4 +1,4 @@
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/665c060e-aa8a-458a-b74c-44c5725c7155/big.png)](https://insight.sensiolabs.com/projects/665c060e-aa8a-458a-b74c-44c5725c7155)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/665c060e-aa8a-458a-b74c-44c5725c7155/big.png)](https://insight.sensiolabs.com/projects/665c060e-aa8a-458a-b74c-44c5725c7155) [![Build Status](https://travis-ci.org/maxpou/symfony-rest-beer-edition.svg?branch=master)](https://travis-ci.org/maxpou/symfony-rest-beer-edition)
 
 Symfony, REST API and DTO (Work in progress)
 ============================================
