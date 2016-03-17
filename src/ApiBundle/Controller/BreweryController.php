@@ -2,7 +2,6 @@
 
 namespace ApiBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Options;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\RouteResource;

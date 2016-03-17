@@ -25,7 +25,7 @@ class LoadBeersData implements FixtureInterface
         $beer->setName('Tripel Karmeliet');
         $beer->setAlcohol('8.4');
         $beer->setBrewery($brewery);
-        $brewery->setDescription('Miam');
+        $beer->setDescription('Miam');
         $manager->persist($beer);
         $beer = new Beer();
         $beer->setName('Deus');
@@ -66,7 +66,7 @@ class LoadBeersData implements FixtureInterface
         $beer->setName('Maredsous 10° tripel');
         $beer->setAlcohol('8');
         $beer->setBrewery($brewery);
-        $brewery->setDescription('The hangover');
+        $beer->setDescription('The hangover');
         $manager->persist($beer);
 
         //Affligem
