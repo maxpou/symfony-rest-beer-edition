@@ -2,11 +2,11 @@
 
 namespace ApiBundle\Tests\Controller;
 
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Maxpou\BeerBundle\DataFixtures\ORM\LoadBeersData;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\Common\DataFixtures\Loader;
 
 class BeerApiControllerTest extends WebTestCase
 {
@@ -268,6 +268,11 @@ class BeerApiControllerTest extends WebTestCase
     public function testDeleteCollection($bosteelsId)
     {
         $client = static::createClient();
+
+        $client->request('DELETE', '/api/breweries/ThisBreweryDoesNotExist/beers');
+
+        $response = $client->getResponse();
+        $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
 
         $client->request('DELETE', '/api/breweries/'.$bosteelsId.'/beers');
 

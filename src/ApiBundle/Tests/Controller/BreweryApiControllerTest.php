@@ -2,11 +2,11 @@
 
 namespace ApiBundle\Tests\Controller;
 
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Maxpou\BeerBundle\DataFixtures\ORM\LoadBeersData;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\Common\DataFixtures\Loader;
 
 class BreweryApiControllerTest extends WebTestCase
 {
@@ -123,7 +123,6 @@ class BreweryApiControllerTest extends WebTestCase
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
         $this->assertContains('Unable to find this Brewery entity', $response->getContent(), $response->getContent());
 
-
         $client->request(
             'PUT',
             '/api/breweries/'.$generatedBreweryId,
@@ -153,7 +152,6 @@ class BreweryApiControllerTest extends WebTestCase
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
         $data = json_decode($response->getContent(), true);
         $this->assertContains('Unable to find this Brewery entity', $response->getContent(), $response->getContent());
-
 
         $client->request('GET', '/api/breweries/'.$generatedBreweryId);
 

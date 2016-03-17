@@ -2,11 +2,11 @@
 
 namespace Maxpou\BeerBundle\Tests\Controller;
 
-use Maxpou\BeerBundle\DataFixtures\ORM\LoadBeersData;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Maxpou\BeerBundle\DataFixtures\ORM\LoadBeersData;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BeerControllerTest extends WebTestCase
 {

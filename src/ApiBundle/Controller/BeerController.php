@@ -8,7 +8,6 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use Maxpou\BeerBundle\Entity\Beer;
 use Maxpou\BeerBundle\Form\Type\BeerApiType;
-use Maxpou\BeerBundle\Form\Type\BeerType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
