@@ -193,7 +193,7 @@ class BeerController extends FOSRestController
     }
 
     /**
-     * Delete all beers from a breweries entity
+     * Delete all beers from an existing brewery entity
      *
      * @ApiDoc(
      *  statusCodes={
@@ -211,15 +211,8 @@ class BeerController extends FOSRestController
             throw new HttpException(404, 'Unable to find this Brewery entity');
         }
 
-        $beers = $em->getRepository('MaxpouBeerBundle:Beer')
-                    ->findByBrewery($brewery);
-
-        if ($beers) {
-            foreach ($beers as $beer) {
-                $em->remove($beer);
-            }
-            $em->flush();
-        }
+        $em->getRepository('MaxpouBeerBundle:Beer')
+           ->deleteAll($brewery);
 
         return $this->view(null, 204);
     }

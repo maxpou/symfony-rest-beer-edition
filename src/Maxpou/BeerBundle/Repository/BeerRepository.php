@@ -10,4 +10,16 @@ namespace Maxpou\BeerBundle\Repository;
  */
 class BeerRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Delete all Breweries entities (and Beer associated)
+     * @return integer number of deleted Beers
+     */
+    public function deleteAll($brewery)
+    {
+        $query = $this->getEntityManager()
+                      ->createQuery('DELETE FROM Maxpou\BeerBundle\Entity\Beer b WHERE b.brewery = :brewery')
+                      ->setParameter("brewery", $brewery);
+
+        return $query->execute();
+    }
 }

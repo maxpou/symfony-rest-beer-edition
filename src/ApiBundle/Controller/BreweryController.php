@@ -61,10 +61,6 @@ class BreweryController extends FOSRestController
       */
     public function getAction($breweryId)
     {
-    //   * @Route(requirements={
-    //   *   "breweryId": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-    //   * })
-    //   * @param UUID $breweryId Brewery Id
         $brewery = $this->getDoctrine()->getManager()
                         ->getRepository('MaxpouBeerBundle:Brewery')
                         ->find($breweryId);
@@ -92,7 +88,7 @@ class BreweryController extends FOSRestController
       *      "class" = "Maxpou\BeerBundle\Form\Type\BreweryType",
       *      "groups"={"list"},
       *      "name" = ""
-      *  },
+      *  }
       * )
       */
     public function postAction(Request $request)
@@ -198,17 +194,9 @@ class BreweryController extends FOSRestController
      */
     public function cdeleteAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $breweries = $em->getRepository('MaxpouBeerBundle:Brewery')
-                        ->findAll();
-
-        if ($breweries) {
-            foreach ($breweries as $brewery) {
-                $em->remove($brewery);
-            }
-            $em->flush();
-        }
+        $this->getDoctrine()->getManager()
+             ->getRepository('MaxpouBeerBundle:Brewery')
+             ->deleteAll();
 
         return $this->view(null, 204);
     }
