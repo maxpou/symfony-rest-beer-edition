@@ -26,12 +26,13 @@ Features in this application:
 
 1. Update parameters.yml (create a new secret key)
 2. Execute this commands
-```
-composer install
-php app/console doctrine:database:create  
-php app/console doctrine:schema:create  
-php app/console doctrine:fixtures:load -n
-```
+
+    ```
+    composer install
+    php app/console doctrine:database:create  
+    php app/console doctrine:schema:create  
+    php app/console doctrine:fixtures:load -n
+    ```
 3. Check configuration by executing `php app/check.php`
 4. Test `phpunit -c app`
 
@@ -73,8 +74,7 @@ Prefer UUID instead of auto increment because, it's make harder to discover exis
 - [ ] GET /whatever-collection -> must return HTTP code 206 (Partial content) and add links into Link HTTP headers (e.g. fist, prev, next and last page)
 
 **Enhancements:**  
-- [ ] Make controllers **more thins!** (use ParamConverter, avoid doctrine research in controllers)
-- [ ] Test with [DHC](https://dhc.restlet.com)  
+- [ ] Make controllers **more thins!** (use ParamConverter, avoid doctrine researches in controllers)
 - [ ] Implement PATCH HTTP method
 - [ ] Exclusion strategy: allow HTTP header Prefer/Vary (Request) and Vary/Preference-Applied (Response). Because clients don't need the same information
 - [ ] Allow sort collection
