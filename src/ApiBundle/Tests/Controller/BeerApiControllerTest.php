@@ -217,13 +217,11 @@ class BeerApiControllerTest extends WebTestCase
         $client->request('GET', '/api/breweries/'.$bosteelsId.'/beers/ThisBeerDoesNotExist');
         $response = $client->getResponse();
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
-        $data = json_decode($response->getContent(), true);
         $this->assertContains('Unable to find this Beer entity', $response->getContent(), $response->getContent());
 
         $client->request('GET', '/api/breweries/ThisBreweryDoesNotExist/beers/'.$generatedBeerId);
         $response = $client->getResponse();
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
-        $data = json_decode($response->getContent(), true);
         $this->assertContains('Unable to find this Brewery entity', $response->getContent(), $response->getContent());
 
         //Success

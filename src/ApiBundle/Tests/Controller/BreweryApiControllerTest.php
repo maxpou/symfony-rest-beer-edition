@@ -76,7 +76,6 @@ class BreweryApiControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(400, $response->getStatusCode(), $response->getContent());
-        $this->assertContains('Validation Failed', $response->getContent(), $response->getContent());
         $this->assertContains('This value is already used.', $response->getContent(), $response->getContent());
 
         return $generatedBreweryId;
