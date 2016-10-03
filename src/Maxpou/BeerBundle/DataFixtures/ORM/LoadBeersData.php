@@ -3,11 +3,17 @@
 namespace Maxpou\BeerBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Maxpou\BeerBundle\Entity\Beer;
 
-class LoadBeersData extends AbstractFixture
+class LoadBeersData extends AbstractFixture implements OrderedFixtureInterface
 {
+    public function getOrder()
+    {
+        return 2;
+    }
+
     public function load(ObjectManager $manager)
     {
         //Bosteels
