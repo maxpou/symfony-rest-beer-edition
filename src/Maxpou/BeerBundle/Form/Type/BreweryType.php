@@ -11,7 +11,7 @@ class BreweryType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,7 +20,7 @@ class BreweryType extends AbstractType
                 'required' => true,
             ))
             ->add('description', TextType::class, array(
-                'required' => false
+                'required' => false,
             ))
         ;
     }
@@ -31,9 +31,9 @@ class BreweryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'         => 'Maxpou\BeerBundle\Entity\Brewery',
-            'csrf_protection'    => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Maxpou\BeerBundle\Entity\Brewery',
+            'csrf_protection' => false,
+            'allow_extra_fields' => true,
         ));
     }
 

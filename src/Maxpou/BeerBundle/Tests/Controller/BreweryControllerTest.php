@@ -16,13 +16,13 @@ class BreweryControllerTest extends WebTestCase
         $this->assertEquals(
             200,
             $client->getResponse()->getStatusCode(),
-            "Unexpected HTTP status code for GET /admin/brewery/"
+            'Unexpected HTTP status code for GET /admin/brewery/'
         );
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'name'        => 'TestBrewery',
+            'name' => 'TestBrewery',
             'description' => 'TestDescription',
         ));
 
@@ -40,7 +40,7 @@ class BreweryControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Edit')->form(array(
-            'name'  => 'FooBrewery',
+            'name' => 'FooBrewery',
         ));
 
         $client->submit($form);

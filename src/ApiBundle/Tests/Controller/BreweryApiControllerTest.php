@@ -5,7 +5,6 @@ namespace ApiBundle\Tests\Controller;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Maxpou\BeerBundle\DataFixtures\ORM\LoadBeersData;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BreweryApiControllerTest extends WebTestCase
@@ -18,7 +17,7 @@ class BreweryApiControllerTest extends WebTestCase
                      ->getManager();
 
         $loader = new Loader();
-        $loader->addFixture(new LoadBeersData());
+        $loader->loadFromDirectory('src/Maxpou/BeerBundle/DataFixtures');
 
         $purger = new ORMPurger();
         $executor = new ORMExecutor($em, $purger);
@@ -77,14 +76,15 @@ class BreweryApiControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(400, $response->getStatusCode(), $response->getContent());
-        $this->assertContains("Validation Failed", $response->getContent(), $response->getContent());
-        $this->assertContains("This value is already used.", $response->getContent(), $response->getContent());
+        $this->assertContains('Validation Failed', $response->getContent(), $response->getContent());
+        $this->assertContains('This value is already used.', $response->getContent(), $response->getContent());
 
         return $generatedBreweryId;
     }
 
     /**
-     * Test: 400, 404 and 204
+     * Test: 400, 404 and 204.
+     *
      * @depends testPost
      */
     public function testPut($generatedBreweryId)
@@ -158,8 +158,8 @@ class BreweryApiControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
         $data = json_decode($response->getContent(), true);
-        $this->assertEquals("Grimbergen Brewery", $data['name'], $response->getContent());
-        $this->assertEquals("Ardet nec consumitur", $data['description'], $response->getContent());
+        $this->assertEquals('Grimbergen Brewery', $data['name'], $response->getContent());
+        $this->assertEquals('Ardet nec consumitur', $data['description'], $response->getContent());
         $this->assertArrayHasKey('_links', $data);
         $this->assertArrayHasKey('self', $data['_links']);
         $this->assertArrayHasKey('beers', $data['_links']);

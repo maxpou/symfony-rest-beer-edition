@@ -9,13 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Beer controller.
- *
  */
 class BeerController extends Controller
 {
     /**
      * Lists all Beer entities.
-     *
      */
     public function indexAction()
     {
@@ -30,7 +28,6 @@ class BeerController extends Controller
 
     /**
      * Creates a new Beer entity.
-     *
      */
     public function newAction(Request $request)
     {
@@ -54,21 +51,19 @@ class BeerController extends Controller
 
     /**
      * Finds and displays a Beer entity.
-     *
      */
     public function showAction(Beer $beer)
     {
         $deleteForm = $this->createDeleteForm($beer);
 
         return $this->render('MaxpouBeerBundle:beer:show.html.twig', array(
-            'beer'        => $beer,
+            'beer' => $beer,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Displays a form to edit an existing Beer entity.
-     *
      */
     public function editAction(Request $request, Beer $beer)
     {
@@ -85,15 +80,14 @@ class BeerController extends Controller
         }
 
         return $this->render('MaxpouBeerBundle:beer:edit.html.twig', array(
-            'beer'        => $beer,
-            'edit_form'   => $editForm->createView(),
+            'beer' => $beer,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Deletes a Beer entity.
-     *
      */
     public function deleteAction(Request $request, Beer $beer)
     {

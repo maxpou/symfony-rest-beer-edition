@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Brewery
+ * Brewery.
  *
  * @ORM\Table(name="brewery")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BreweryRepository")
@@ -59,7 +59,7 @@ class Brewery implements BreweryInterface
     private $description;
 
     /**
-     * Beer
+     * Beer.
      *
      * @var \Maxpou\BeerBundle\Entity\Beer
      *
@@ -76,7 +76,7 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return UUID
      */
@@ -86,9 +86,10 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Brewery
      */
     public function setName($name)
@@ -99,7 +100,7 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -109,9 +110,10 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return Brewery
      */
     public function setDescription($description)
@@ -122,7 +124,7 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -132,9 +134,10 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Add beer
+     * Add beer.
      *
      * @param Beer $beer
+     *
      * @return Brewery
      */
     public function addBeer(Beer $beer)
@@ -145,7 +148,7 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Remove beer
+     * Remove beer.
      *
      * @param Beer $beer
      */
@@ -155,7 +158,7 @@ class Brewery implements BreweryInterface
     }
 
     /**
-     * Get beers
+     * Get beers.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

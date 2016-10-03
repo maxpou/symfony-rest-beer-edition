@@ -9,13 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Brewery controller.
- *
  */
 class BreweryController extends Controller
 {
     /**
      * Lists all Brewery entities.
-     *
      */
     public function indexAction()
     {
@@ -30,7 +28,6 @@ class BreweryController extends Controller
 
     /**
      * Creates a new Brewery entity.
-     *
      */
     public function newAction(Request $request)
     {
@@ -54,7 +51,6 @@ class BreweryController extends Controller
 
     /**
      * Finds and displays a Brewery entity.
-     *
      */
     public function showAction(Brewery $brewery)
     {
@@ -68,7 +64,6 @@ class BreweryController extends Controller
 
     /**
      * Displays a form to edit an existing Brewery entity.
-     *
      */
     public function editAction(Request $request, Brewery $brewery)
     {
@@ -93,7 +88,6 @@ class BreweryController extends Controller
 
     /**
      * Deletes a Brewery entity.
-     *
      */
     public function deleteAction(Request $request, Brewery $brewery)
     {

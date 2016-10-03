@@ -34,7 +34,7 @@ Features in this application:
     php app/console doctrine:fixtures:load -n
     ```
 3. Check configuration by executing `php app/check.php`
-4. Test `phpunit -c app`
+4. Test `composer test`
 
 ## What's inside?
 

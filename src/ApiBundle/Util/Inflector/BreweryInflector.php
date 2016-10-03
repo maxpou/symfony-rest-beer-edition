@@ -5,8 +5,7 @@ namespace ApiBundle\Util\Inflector;
 use FOS\RestBundle\Util\Inflector\InflectorInterface;
 
 /**
- * Inflector class
- *
+ * Inflector class.
  */
 class BreweryInflector implements InflectorInterface
 {

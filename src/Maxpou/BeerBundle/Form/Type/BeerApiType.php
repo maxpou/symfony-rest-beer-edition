@@ -9,7 +9,7 @@ class BeerApiType extends BeerType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,9 +26,9 @@ class BeerApiType extends BeerType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'         => 'Maxpou\BeerBundle\Entity\Beer',
-            'csrf_protection'    => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Maxpou\BeerBundle\Entity\Beer',
+            'csrf_protection' => false,
+            'allow_extra_fields' => true,
         ));
     }
 

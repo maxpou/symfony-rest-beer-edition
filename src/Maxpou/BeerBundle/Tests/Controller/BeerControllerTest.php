@@ -5,7 +5,6 @@ namespace Maxpou\BeerBundle\Tests\Controller;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Maxpou\BeerBundle\DataFixtures\ORM\LoadBeersData;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BeerControllerTest extends WebTestCase
@@ -18,7 +17,7 @@ class BeerControllerTest extends WebTestCase
                      ->getManager();
 
         $loader = new Loader();
-        $loader->addFixture(new LoadBeersData());
+        $loader->loadFromDirectory('src/Maxpou/BeerBundle/DataFixtures');
 
         $purger = new ORMPurger();
         $executor = new ORMExecutor($em, $purger);
@@ -35,15 +34,15 @@ class BeerControllerTest extends WebTestCase
         $this->assertEquals(
             200,
             $client->getResponse()->getStatusCode(),
-            "Unexpected HTTP status code for GET /admin/beer/"
+            'Unexpected HTTP status code for GET /admin/beer/'
         );
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'name'        => 'TestBeer',
+            'name' => 'TestBeer',
             'description' => 'TestDescription',
-            'alcohol'     => 9.3
+            'alcohol' => 9.3,
             //default Brewery = first one
         ));
 
@@ -61,7 +60,7 @@ class BeerControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Edit')->form(array(
-            'name'  => 'FooBeer'
+            'name' => 'FooBeer',
         ));
 
         $client->submit($form);

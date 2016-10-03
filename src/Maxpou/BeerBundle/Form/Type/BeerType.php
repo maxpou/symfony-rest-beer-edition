@@ -13,7 +13,7 @@ class BeerType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,18 +22,18 @@ class BeerType extends AbstractType
                 'required' => true,
             ))
             ->add('description', TextType::class, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('alcohol', NumberType::class, array(
-                'description'  => 'Beer alcohol degree (must be > 5°)',
+                'description' => 'Beer alcohol degree (must be > 5°)',
                 'required' => true,
             ))
             ->add('brewery', EntityType::class, array(
-                'class'        => 'Maxpou\BeerBundle\Entity\Brewery',
-                'description'  => 'Brewery id',
+                'class' => 'Maxpou\BeerBundle\Entity\Brewery',
+                'description' => 'Brewery id',
                 'choice_label' => 'name',
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
             ))
         ;
     }
@@ -44,9 +44,9 @@ class BeerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'         => 'Maxpou\BeerBundle\Entity\Beer',
-            'csrf_protection'    => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Maxpou\BeerBundle\Entity\Beer',
+            'csrf_protection' => false,
+            'allow_extra_fields' => true,
         ));
     }
 

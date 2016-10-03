@@ -17,12 +17,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Branche controller.
+ *
  * @RouteResource("brewery")
  */
 class BreweryController extends FOSRestController
 {
     /**
-     * Get all Breweries entities
+     * Get all Breweries entities.
      *
      * @ApiDoc(
      *  statusCodes={
@@ -36,13 +37,13 @@ class BreweryController extends FOSRestController
     public function cgetAction(ParamFetcher $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $limit  = $paramFetcher->get('limit');
+        $limit = $paramFetcher->get('limit');
 
-        $em        = $this->getDoctrine()->getManager();
-        $breweries = $em  ->getRepository('MaxpouBeerBundle:Brewery')
+        $em = $this->getDoctrine()->getManager();
+        $breweries = $em->getRepository('MaxpouBeerBundle:Brewery')
                           ->findBy([], ['name' => 'ASC'], $limit, $offset);
 
-        $context = SerializationContext::create()->setGroups(array('Default','list'));
+        $context = SerializationContext::create()->setGroups(array('Default', 'list'));
         $view = $this->view($breweries, 200);
         $view->setSerializationContext($context);
 
@@ -50,15 +51,17 @@ class BreweryController extends FOSRestController
     }
 
     /**
-      * Get a Brewery entity
-      * @ApiDoc(
-      *  statusCodes={
-      *      200="Returned when successful",
-      *      400="Returned when parameter is wrong",
-      *      404="Returned when not found"
-      * })
-      * @param UUID $breweryId Brewery Id
-      */
+     * Get a Brewery entity.
+     *
+     * @ApiDoc(
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400="Returned when parameter is wrong",
+     *      404="Returned when not found"
+     * })
+     *
+     * @param UUID $breweryId Brewery Id
+     */
     public function getAction($breweryId)
     {
         $brewery = $this->getDoctrine()->getManager()
@@ -69,7 +72,7 @@ class BreweryController extends FOSRestController
             throw new HttpException(404, 'Unable to find this Brewery entity');
         }
 
-        $context = SerializationContext::create()->setGroups(array('Default','details'));
+        $context = SerializationContext::create()->setGroups(array('Default', 'details'));
         $view = $this->view($brewery, 200);
         $view->setSerializationContext($context);
 
@@ -77,20 +80,20 @@ class BreweryController extends FOSRestController
     }
 
     /**
-      * Add a Brewery
-      *
-      * @ApiDoc(
-      *  statusCodes={
-      *      201="Returned when successful",
-      *      400="Returned when parameter is wrong"
-      *  },
-      *  input = {
-      *      "class" = "Maxpou\BeerBundle\Form\Type\BreweryType",
-      *      "groups"={"list"},
-      *      "name" = ""
-      *  }
-      * )
-      */
+     * Add a Brewery.
+     *
+     * @ApiDoc(
+     *  statusCodes={
+     *      201="Returned when successful",
+     *      400="Returned when parameter is wrong"
+     *  },
+     *  input = {
+     *      "class" = "Maxpou\BeerBundle\Form\Type\BreweryType",
+     *      "groups"={"list"},
+     *      "name" = ""
+     *  }
+     * )
+     */
     public function postAction(Request $request)
     {
         $brewery = new Brewery();
@@ -105,7 +108,7 @@ class BreweryController extends FOSRestController
             $em->flush();
 
             $view = $this->view($brewery, 201);
-            $context = SerializationContext::create()->setGroups(array('Default','details'));
+            $context = SerializationContext::create()->setGroups(array('Default', 'details'));
             $view->setSerializationContext($context);
         } else {
             $view = $this->view($form, 400);
@@ -115,7 +118,7 @@ class BreweryController extends FOSRestController
     }
 
     /**
-     * Update an existing Brewery (cannot create here, sorry)
+     * Update an existing Brewery (cannot create here, sorry).
      *
      * @ApiDoc(
      *  statusCodes={
@@ -127,6 +130,7 @@ class BreweryController extends FOSRestController
      *     "class" = "Maxpou\BeerBundle\Form\Type\BreweryType",
      *     "name" = ""
      * })
+     *
      * @param UUID $breweryId Brewery Id
      */
     public function putAction(Request $request, $breweryId)
@@ -158,7 +162,7 @@ class BreweryController extends FOSRestController
     }
 
     /**
-     * Delete brewery
+     * Delete brewery.
      *
      * @ApiDoc(
      *  statusCodes={
@@ -167,6 +171,7 @@ class BreweryController extends FOSRestController
      * @Route(requirements={
      *   "breweryId": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
      * })
+     *
      * @param UUID $breweryId Brewery Id
      */
     public function deleteAction($breweryId)
@@ -185,7 +190,7 @@ class BreweryController extends FOSRestController
     }
 
     /**
-     * Delete all breweries
+     * Delete all breweries.
      *
      * @ApiDoc(
      *  statusCodes={
@@ -202,7 +207,7 @@ class BreweryController extends FOSRestController
     }
 
     /**
-     * Options
+     * Options.
      *
      * @ApiDoc(
      *  statusCodes={

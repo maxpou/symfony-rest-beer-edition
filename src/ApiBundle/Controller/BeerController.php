@@ -14,13 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * Beer controller
+ * Beer controller.
+ *
  * @RouteResource("beer")
  */
 class BeerController extends FOSRestController
 {
     /**
-     * Get all Beers entities
+     * Get all Beers entities.
      *
      * @ApiDoc(
      *  statusCodes={
@@ -30,34 +31,38 @@ class BeerController extends FOSRestController
      *     description="Offset from which to start listing breweries.")
      * @QueryParam(name="limit", requirements="\d+", nullable=true,
      *     description="How many breweries to return.")
+     *
      * @param UUID $breweryId Brewery Id
      */
     public function cgetAction($breweryId, ParamFetcher $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $limit  = $paramFetcher->get('limit');
+        $limit = $paramFetcher->get('limit');
 
-        $em    = $this->getDoctrine()->getManager();
-        $beers = $em ->getRepository('MaxpouBeerBundle:Beer')
+        $em = $this->getDoctrine()->getManager();
+        $beers = $em->getRepository('MaxpouBeerBundle:Beer')
                      ->findBy(
                          ['brewery' => $breweryId],
-                         ['name' => 'ASC'], $limit, $offset
+                         ['name' => 'ASC'],
+                         $limit,
+                         $offset
                      );
 
         return $beers;
     }
 
     /**
-      * Get a Beer entity
-      *
-      * @ApiDoc(
-      *  statusCodes={
-      *      200="Returned when successful",
-      *      404="Returned when not found"
-      * })
-      * @param UUID $breweryId Brewery Id
-      * @param UUID $beerId    Beer Id
-      */
+     * Get a Beer entity.
+     *
+     * @ApiDoc(
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      404="Returned when not found"
+     * })
+     *
+     * @param UUID $breweryId Brewery Id
+     * @param UUID $beerId    Beer Id
+     */
     public function getAction($breweryId, $beerId)
     {
         $brewery = $this->getDoctrine()->getManager()
@@ -80,19 +85,20 @@ class BeerController extends FOSRestController
     }
 
     /**
-      * Add a Beer
-      *
-      * @ApiDoc(
-      *  statusCodes={
-      *       201="Returned when successful",
-      *       400="Returned when parameter is wrong"
-      *  },
-      *  input = {
-      *      "class" = "Maxpou\BeerBundle\Form\Type\BeerApiType",
-      *      "name"  = ""
-      * })
-      * @param UUID $breweryId Brewery Id
-      */
+     * Add a Beer.
+     *
+     * @ApiDoc(
+     *  statusCodes={
+     *       201="Returned when successful",
+     *       400="Returned when parameter is wrong"
+     *  },
+     *  input = {
+     *      "class" = "Maxpou\BeerBundle\Form\Type\BeerApiType",
+     *      "name"  = ""
+     * })
+     *
+     * @param UUID $breweryId Brewery Id
+     */
     public function postAction($breweryId, Request $request)
     {
         $brewery = $this->getDoctrine()->getManager()
@@ -123,7 +129,7 @@ class BeerController extends FOSRestController
     }
 
     /**
-     * Update an existing Beer (cannot create here, sorry)
+     * Update an existing Beer (cannot create here, sorry).
      *
      * @ApiDoc(
      *  statusCodes={
@@ -135,6 +141,7 @@ class BeerController extends FOSRestController
      *     "class" = "Maxpou\BeerBundle\Form\Type\BeerApiType",
      *     "name"  = ""
      * })
+     *
      * @param UUID $breweryId Brewery Id
      * @param UUID $beerId    Beer Id
      */
@@ -167,12 +174,13 @@ class BeerController extends FOSRestController
     }
 
     /**
-     * Delete brewery
+     * Delete brewery.
      *
      * @ApiDoc(
      *  statusCodes={
      *      204="Returned when successful"
      * })
+     *
      * @param UUID $breweryId Brewery Id
      * @param UUID $beerId    Beer Id
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -193,12 +201,13 @@ class BeerController extends FOSRestController
     }
 
     /**
-     * Delete all beers from an existing brewery entity
+     * Delete all beers from an existing brewery entity.
      *
      * @ApiDoc(
      *  statusCodes={
      *      204="Returned when successful"
      * })
+     *
      * @param UUID $breweryId Brewery Id
      */
     public function cdeleteAction($breweryId)
@@ -218,12 +227,13 @@ class BeerController extends FOSRestController
     }
 
     /**
-     * Options
+     * Options.
      *
      * @ApiDoc(
      *  statusCodes={
      *      200="Returned when successful"
      * })
+     *
      * @param UUID $breweryId Brewery Id
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */

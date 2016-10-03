@@ -10,7 +10,7 @@ use Maxpou\BeerBundle\Model\BeerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Beer
+ * Beer.
  *
  * @ORM\Table(name="beer")
  * @ORM\Entity(repositoryClass="Maxpou\BeerBundle\Repository\BeerRepository")
@@ -61,19 +61,19 @@ class Beer implements BeerInterface
     private $alcohol;
 
     /**
-     * Brewery
+     * Brewery.
      *
      * @var \Maxpou\BeerBundle\Entity\Brewery
      *
      * @ORM\ManyToOne(targetEntity="Brewery", inversedBy="beers")
-     * @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
      * @Exclude
      */
     private $brewery;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -83,7 +83,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -97,7 +97,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -107,7 +107,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -121,7 +121,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -131,7 +131,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Set alcohol
+     * Set alcohol.
      *
      * @param float $alcohol
      *
@@ -145,7 +145,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Get alcohol
+     * Get alcohol.
      *
      * @return float
      */
@@ -155,7 +155,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Set brewery
+     * Set brewery.
      *
      * @param \Maxpou\BeerBundle\Entity\Brewery $brewery
      *
@@ -169,7 +169,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Get brewery
+     * Get brewery.
      *
      * @return \Maxpou\BeerBundle\Entity\Brewery
      */
@@ -179,7 +179,7 @@ class Beer implements BeerInterface
     }
 
     /**
-     * Get brewery
+     * Get brewery.
      *
      * @return \Maxpou\BeerBundle\Entity\Brewery
      */

@@ -5,7 +5,6 @@ namespace ApiBundle\Tests\Controller;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Maxpou\BeerBundle\DataFixtures\ORM\LoadBeersData;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BeerApiControllerTest extends WebTestCase
@@ -18,7 +17,7 @@ class BeerApiControllerTest extends WebTestCase
                      ->getManager();
 
         $loader = new Loader();
-        $loader->addFixture(new LoadBeersData());
+        $loader->loadFromDirectory('src/Maxpou/BeerBundle/DataFixtures');
 
         $purger = new ORMPurger();
         $executor = new ORMExecutor($em, $purger);
@@ -75,7 +74,8 @@ class BeerApiControllerTest extends WebTestCase
     }
 
     /**
-     * Test 404, 400 (x2), 201
+     * Test 404, 400 (x2), 201.
+     *
      * @depends testFindBoostels
      */
     public function testPost($bosteelsId)
@@ -231,8 +231,8 @@ class BeerApiControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
         $data = json_decode($response->getContent(), true);
-        $this->assertEquals("Christmas beer", $data['name'], $response->getContent());
-        $this->assertContains("his beer is a fake", $data['description'], $response->getContent());
+        $this->assertEquals('Christmas beer', $data['name'], $response->getContent());
+        $this->assertContains('his beer is a fake', $data['description'], $response->getContent());
         $this->assertArrayHasKey('_links', $data);
     }
 
