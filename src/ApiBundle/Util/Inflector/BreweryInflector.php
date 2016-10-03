@@ -2,7 +2,7 @@
 
 namespace ApiBundle\Util\Inflector;
 
-use FOS\RestBundle\Util\Inflector\InflectorInterface;
+use FOS\RestBundle\Inflector\InflectorInterface;
 
 /**
  * Inflector class.

@@ -2,12 +2,12 @@
 
 namespace ApiBundle\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
-use JMS\Serializer\SerializationContext;
 use Maxpou\BeerBundle\Entity\Brewery;
 use Maxpou\BeerBundle\Form\Type\BreweryType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -43,9 +43,11 @@ class BreweryController extends FOSRestController
         $breweries = $em->getRepository('MaxpouBeerBundle:Brewery')
                           ->findBy([], ['name' => 'ASC'], $limit, $offset);
 
-        $context = SerializationContext::create()->setGroups(array('Default', 'list'));
+        $context = new Context();
+        $context->addGroups(array('Default', 'list'));
+
         $view = $this->view($breweries, 200);
-        $view->setSerializationContext($context);
+        $view->setContext($context);
 
         return $this->handleView($view);
     }
@@ -72,9 +74,10 @@ class BreweryController extends FOSRestController
             throw new HttpException(404, 'Unable to find this Brewery entity');
         }
 
-        $context = SerializationContext::create()->setGroups(array('Default', 'details'));
+        $context = new Context();
+        $context->addGroups(array('Default', 'details'));
         $view = $this->view($brewery, 200);
-        $view->setSerializationContext($context);
+        $view->setContext($context);
 
         return $this->handleView($view);
     }
@@ -108,8 +111,9 @@ class BreweryController extends FOSRestController
             $em->flush();
 
             $view = $this->view($brewery, 201);
-            $context = SerializationContext::create()->setGroups(array('Default', 'details'));
-            $view->setSerializationContext($context);
+            $context = new Context();
+            $context->addGroups(array('Default', 'details'));
+            $view->setContext($context);
         } else {
             $view = $this->view($form, 400);
         }
